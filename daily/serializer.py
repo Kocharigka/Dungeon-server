@@ -17,4 +17,9 @@ class RunsCreateSerializer(serializers.ModelSerializer):
 class LeaderbordListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Leaderbord
-        fields=('seed','name','score')
+        fields=('name','score')
+
+class LeaderbordCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Leaderbord
+        fields="__all__"
