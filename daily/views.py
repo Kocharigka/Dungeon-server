@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Runs,Leaderbord
-from .serializer import RunsListSerializer,LeaderbordListSerializer,RunsCreateSerializer,LeaderbordCreateSerializer
+from .models import Runs,Leaderbord,GameSave
+from .serializer import RunsListSerializer,LeaderbordListSerializer,RunsCreateSerializer,LeaderbordCreateSerializer,SaveSerializer
 
 import datetime
 # Create your views here.
@@ -37,6 +37,20 @@ class LeaderbordListView(APIView):
 
     def post(self,request):
         record=LeaderbordCreateSerializer(data=request.data)
+        if record.is_valid():
+            record.save()
+            return Response(status=201)
+        else:
+            return Response(status=203)
+
+class SaveView(APIView):
+    def get(self,request):
+        saves=GameSave.objects
+        serializer=LeaderbordListSerializer(saves,many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        record=SaveSerializer(data=request.data)
         if record.is_valid():
             record.save()
             return Response(status=201)
