@@ -7,4 +7,5 @@ urlpatterns=[
     path("daily/today/",views.RunDetailView.as_view()),
     path("daily/create/",views.RunCreateView.as_view()),
     path("daily/leaderbord/",views.LeaderbordListView.as_view()),
+    path("daily/save/",views.SaveView.as_view()),
 ]

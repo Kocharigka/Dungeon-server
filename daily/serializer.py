@@ -1,6 +1,6 @@
 from rest_framework import  serializers
 
-from .models import  Runs,Leaderbord
+from .models import  Runs,Leaderbord,GameSave
 
 
 class RunsListSerializer(serializers.ModelSerializer):
@@ -23,3 +23,8 @@ class LeaderbordCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Leaderbord
         fields="__all__"
+
+class SaveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=GameSave
+        fields="__all"
