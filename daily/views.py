@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Runs,Leaderbord,GameSave
-from .serializer import RunsListSerializer,LeaderbordListSerializer,RunsCreateSerializer,LeaderbordCreateSerializer,SaveSerializer
+from .serializer import RunsSeedSerializer,RunsListSerializer,LeaderbordListSerializer,RunsCreateSerializer,LeaderbordCreateSerializer,SaveSerializer
 
 import datetime
 # Create your views here.
@@ -16,7 +16,7 @@ class RunListView(APIView):
 class RunDetailView(APIView):
     def get(self,request):
         runs=Runs.objects.filter(run_date=datetime.datetime.today())
-        serializer=RunsListSerializer(runs,many=True)
+        serializer=RunsSeedSerializer(runs,many=True)
         return Response(serializer.data)
 
 class RunCreateView(APIView):
@@ -29,14 +29,18 @@ class RunCreateView(APIView):
             return Response(status=203)
 
 class LeaderbordListView(APIView):
+    def JsonToOk(self,data):
+        return {"seed":int(data['seed']),
+                "name":data['name'],
+                "score":int(data["score"])}
     def get(self,request):
         today_seed=Runs.objects.filter(run_date=datetime.datetime.today())
-        board=Leaderbord.objects.filter(seed=today_seed[0])
+        board=Leaderbord.objects.filter(seed=today_seed[0]).order_by('-score')[:10]
         serializer=LeaderbordListSerializer(board,many=True)
         return Response(serializer.data)
 
     def post(self,request):
-        record=LeaderbordCreateSerializer(data=request.data)
+        record=LeaderbordCreateSerializer(data=self.JsonToOk(request.data))
         if record.is_valid():
             record.save()
             return Response(status=201)

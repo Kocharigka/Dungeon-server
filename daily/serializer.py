@@ -8,12 +8,15 @@ class RunsListSerializer(serializers.ModelSerializer):
         model=Runs
         fields="__all__"
 
+class RunsSeedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Runs
+        fields=["id","seed"]
+
 class RunsCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Runs
         fields="__all__"
-
-
 class LeaderbordListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Leaderbord
