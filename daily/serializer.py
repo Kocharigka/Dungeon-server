@@ -1,6 +1,6 @@
 from rest_framework import  serializers
 
-from .models import  Runs,Leaderbord,GameSave
+from .models import  Runs,Leaderbord
 
 
 class RunsListSerializer(serializers.ModelSerializer):
@@ -13,10 +13,6 @@ class RunsSeedSerializer(serializers.ModelSerializer):
         model=Runs
         fields=["id","seed"]
 
-class RunsCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Runs
-        fields="__all__"
 class LeaderbordListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Leaderbord
@@ -26,8 +22,3 @@ class LeaderbordCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Leaderbord
         fields="__all__"
-
-class SaveSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=GameSave
-        fields="__all"

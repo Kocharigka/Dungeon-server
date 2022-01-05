@@ -1,1 +1,1 @@
-* * * * * python /tmp/crontask.py >> /var/log/cron.log 2>&1
+* * * * * root python /tmp/crontask.py >> /var/log/cron.log 2>&1
